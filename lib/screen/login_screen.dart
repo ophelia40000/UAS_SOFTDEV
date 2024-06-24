@@ -124,6 +124,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),),
               ),
             ),
+            Positioned(
+              top: MediaQuery.of(context).viewInsets.top+610,
+              left: MediaQuery.of(context).viewInsets.left+48,
+              child:Column(
+                children: [
+                  Text("Christ thaddeus - 5355220196",style: TextStyle(color: Colors.grey),),
+                  Text("Jason Wiedardi Putra - 5355220212",style: TextStyle(color: Colors.grey),),
+                  Text("Wilson Afando - 5355220219",style: TextStyle(color: Colors.grey),),
+                  Text("Muhammad Raffi Hermawan - 5355220259",style: TextStyle(color: Colors.grey),),
+                ],
+              )
+            ),
             
             Positioned(
               top: MediaQuery.of(context).viewInsets.top+470,
