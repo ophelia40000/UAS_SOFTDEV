@@ -30,11 +30,10 @@ Container makeIcon(IconData id, double s) {
         color: Colors.blue,
       ),
       onTap: () {
-        // print('pressed');
+        
       },
     ),
-    // SizedBox(height: 100,),
-    // Text("data"),
+    
   );
 }
 
@@ -69,7 +68,7 @@ class _Premium extends State<Premium> {
           actions: [
             TextButton(
               onPressed: () {
-                // Close the dialog
+                
                 Navigator.of(context).pop();
               },
               child: const Text('Close'),
@@ -158,11 +157,11 @@ class _Premium extends State<Premium> {
           ),
         ),
         body: Container(
-          // untuk semua body
+          
           width: _screenSize.width,
           height: _screenSize.height,
           decoration: const BoxDecoration(
-              //untuk 2 warna body background
+              
               gradient: LinearGradient(colors: [
             Colors.blue,
             Colors.black,
@@ -189,7 +188,7 @@ class _Premium extends State<Premium> {
                       autoPlayInterval: const Duration(seconds: 3),
                     ),
                   ),
-                ), //container carousel
+                ),
               ),
               SizedBox(height: 20, width: _screenSize.width),
               Expanded(
@@ -203,10 +202,10 @@ class _Premium extends State<Premium> {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        // Handle the tap for the item at index
+                        
                         popDialog(
                             context, _saleList[index], _verif_icon[index]);
-                        // print('Item tapped: ${_saleList[index]}');
+                       
                       },
                       child: Card(
                         child: Container(

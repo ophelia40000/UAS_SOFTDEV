@@ -12,14 +12,14 @@ class CommentPage extends StatefulWidget {
 }
 
 class _CommentPageState extends State<CommentPage> {
-  // Placeholder data for now
+ 
   final List<CommentData> comments = [];
   final TextEditingController _commentController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // Ambil data komentar dari Firebase berdasarkan postId
+    
     _fetchComments(widget.postId);
   }
 
@@ -50,10 +50,10 @@ class _CommentPageState extends State<CommentPage> {
         .add({
       'author': author,
       'content': content,
-      'timestamp': FieldValue.serverTimestamp(), // Menambahkan timestamp
+      'timestamp': FieldValue.serverTimestamp(), 
     });
-    _commentController.clear(); // Bersihkan kotak teks
-    _fetchComments(postId); // Perbarui daftar komentar
+    _commentController.clear(); 
+    _fetchComments(postId); 
     print(globals.komen);
   }
 
@@ -66,7 +66,7 @@ class _CommentPageState extends State<CommentPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Navigator.pop(context); 
           },
         ),
       ),

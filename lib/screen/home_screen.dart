@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/beranda.dart';
-import 'package:flutter_application_1/screen/chat_screen.dart';
+
 import 'package:flutter_application_1/screen/globals.dart' as globals;
-import 'package:flutter_application_1/screen/home_screen.dart';
+
 import 'package:flutter_application_1/screen/pengaturan.dart';
 import 'package:flutter_application_1/screen/premium.dart';
 import 'package:flutter_application_1/screen/profile.dart';
@@ -84,6 +83,7 @@ class MailScreen extends StatefulWidget {
 
 class _MailScreenState extends State<MailScreen> {
   
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer:  const WidgetDrawer(),

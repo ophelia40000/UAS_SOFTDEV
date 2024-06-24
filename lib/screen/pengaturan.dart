@@ -3,7 +3,7 @@ import 'package:flutter_application_1/screen/globals.dart' as globals;
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application_1/screen/login_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import cloud_firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Pengaturan extends StatefulWidget {
   const Pengaturan({super.key});
@@ -14,12 +14,12 @@ class Pengaturan extends StatefulWidget {
 
 class _Pengaturan extends State<Pengaturan> {
   final CollectionReference users = FirebaseFirestore.instance.collection('users'); 
-  bool isRestricted = false; // Variabel untuk melacak status restricted mode
+  bool isRestricted = false;
 
   @override
   void initState() {
     super.initState();
-    _loadRestrictedMode(); // Memuat status restricted mode saat aplikasi dimulai
+    _loadRestrictedMode(); 
   }
 
   Future<void> _loadRestrictedMode() async {
@@ -81,12 +81,12 @@ class _Pengaturan extends State<Pengaturan> {
             activeColor: Colors.white,
             onChanged: (value) async { 
               setState(() {
-                // Toggle isRestricted: 
-                isRestricted = !isRestricted; // Toggle restricted status
-                // ... (Kode untuk mengubah warna jika diperlukan)
+                
+                isRestricted = !isRestricted; 
+                
               });
 
-              // Update restricted mode status di Firestore
+              
               await updateRestrictedMode(isRestricted);
             },
           ),
@@ -135,12 +135,12 @@ Future<void> signOut() async {
   }
 }
 
-// Fungsi untuk memperbarui restricted mode status di Firestore
+
 Future<void> updateRestrictedMode(bool isRestricted) async {
   final CollectionReference users = FirebaseFirestore.instance.collection('users');
   try {
     await users.doc(FirebaseAuth.instance.currentUser!.uid).update({
-      'restricted_mode': isRestricted, // Nama field di Firestore
+      'restricted_mode': isRestricted, 
     });
     print('Restricted mode berhasil diperbarui.');
   } catch (e) {

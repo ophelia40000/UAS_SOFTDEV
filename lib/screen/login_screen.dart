@@ -5,7 +5,7 @@ import 'package:flutter_application_1/screen/auth_services.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:flutter_application_1/screen/signup_screen.dart';
 import 'package:flutter_application_1/screen/globals.dart' as globals;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'dart:math';
 
 class LoginScreen extends StatefulWidget {
@@ -44,11 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               width: 200,
               height: 200,
             ),
-            // Icon(
-            //   FontAwesomeIcons.xTwitter,
-            //   color: Colors.white,
-            //   size: 50,
-            //   )
+            
             ),
             Positioned(
               top: MediaQuery.of(context).viewInsets.top+360,
@@ -112,8 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: TextStyle(
                     color: Color.fromARGB(255, 100, 110, 196),
                     fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline, // Menambahkan garis bawah
-                    decorationColor: Color.fromARGB(255, 100, 110, 196), // Warna garis bawah
+                    decoration: TextDecoration.underline,
+                    decorationColor: Color.fromARGB(255, 100, 110, 196), 
                   ),
                 ),
               ),
@@ -162,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
   void _signIn() async{
-    String username=_username.text;
+
     String email=_email.text;
     String password=_password.text;
 
@@ -201,14 +197,14 @@ String _generateRandomName() {
     await for (var authState in auth.authStateChanges()) {
       if (authState != null) {
         try {
-          // Generate random name
+          
           String randomName = _generateRandomName();
 
-          // Set to global variable
+         
           globals.nama = randomName;
 
-          // Save to Firestore
-          await _produk.doc(authState.uid).update({'name': randomName}); // Update if the document already exists
+          
+          await _produk.doc(authState.uid).update({'name': randomName});
           print('Nama random "${randomName}" dibuat dan disimpan.');
 
         } catch (e) {

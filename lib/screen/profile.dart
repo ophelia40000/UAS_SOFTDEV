@@ -1,11 +1,11 @@
 
 
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/edit_profile.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:flutter_application_1/screen/post_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter_application_1/screen/globals.dart' as globals;
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -35,7 +35,6 @@ class _ProfileState extends State<Profile> {
               ),
             ),
             Positioned(
-              //profile pic
               left: 10,
               top: 90,
               width:80,
@@ -75,9 +74,6 @@ class _ProfileState extends State<Profile> {
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  // decoration: BoxDecoration(
-
-                  // ),
                 )),
                 Positioned(
                   top: 26,

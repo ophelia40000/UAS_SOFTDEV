@@ -9,7 +9,6 @@ import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:intl/intl.dart';
 import 'package:like_button/like_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_application_1/screen/globals.dart' as globals;
 import 'package:flutter_application_1/screen/tweet_services.dart';
 
@@ -113,7 +112,7 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Pengaturan()));
+                  MaterialPageRoute(builder: (context) => const Pengaturan()));
             },
             icon: Icon(
               Icons.settings,
@@ -129,7 +128,7 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
             child: TabBarView(
               controller: tabCtrl,
               children: [
-                PostFire(),
+                const PostFire(),
                 _Tab(
                   tweets: TweetService.getTweet(),
                 ),
@@ -142,13 +141,13 @@ class _BerandaState extends State<Beranda> with SingleTickerProviderStateMixin {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
-                  shape: CircleBorder(), 
-                  padding: EdgeInsets.all(14)),
+                  shape: const CircleBorder(), 
+                  padding: const EdgeInsets.all(14)),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PostScreen()));
+                    MaterialPageRoute(builder: (context) => const PostScreen()));
               },
-              child: Icon(Icons.add,color: Colors.white,),
+              child: const Icon(Icons.add,color: Colors.white,),
             ),
           )
         ],
@@ -830,12 +829,12 @@ class _PostFireState extends State<PostFire> {
                 .collection('comments')
                 .snapshots(),
             builder: (context, snapshot) {
-              //  Langsung menampilkan jumlah komentar
-              int commentCount = snapshot.data?.docs.length ?? 0; // Default 0 jika data kosong
+              
+              int commentCount = snapshot.data?.docs.length ?? 0; 
               return IconWidget(
                 path: commentIcon,
                 color: items[index].tombol3 ? Colors.green : Colors.grey,
-                text: '$commentCount', // Display comment count
+                text: '$commentCount', 
                 onTap: () {
                                     setState(() {
                                       
@@ -850,23 +849,6 @@ class _PostFireState extends State<PostFire> {
               );
             },
           ),
-                                // IconWidget(
-                                //   color: items[index].tombol3 ? Colors.green :Colors.grey,
-                                //   path: commentIcon,
-                                //   text: '1',
-                                //   onTap: () {
-                                //     setState(() {
-                                //       print("ayam");
-                                //       Navigator.push(
-                                //         context,
-                                //         MaterialPageRoute(
-                                //           builder: (context) => CommentPage(postId: documentSnapshot.id),
-                                //         ),
-                                //       );
-                                //       items[index].tombol3=!items[index].tombol3;
-                                //     });
-                                //   },
-                                // ),
                                 IconWidget(
                                   path: retweetIcon,
                                   color: items[index].tombol1 ? Colors.blue : Colors.grey,

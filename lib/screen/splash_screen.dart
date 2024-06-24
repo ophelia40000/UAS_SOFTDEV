@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:flutter_application_1/screen/login_screen.dart';
 import 'package:flutter_application_1/screen/globals.dart' as globals;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 
 
@@ -26,13 +26,7 @@ with SingleTickerProviderStateMixin{
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
 
-    // Future.delayed(const Duration(seconds:2),(){
-    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //     builder: (_) => const LoginScreen(),
-    //     ));
-    // });
-    // Future.delayed(const Duration(seconds:2),(){
-    // });
+  
 
     Future.delayed(const Duration(seconds:2),(){
       FirebaseAuth.instance.authStateChanges().listen((User? user) {

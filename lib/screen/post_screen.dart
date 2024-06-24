@@ -227,7 +227,7 @@ class _PostScreenState extends State<PostScreen> {
     );
   }
 
-   Future<void> createUser({required String name, required String? imageUrl, required bool restricted}) async { // Perhatikan String? di sini
+   Future<void> createUser({required String name, required String? imageUrl, required bool restricted}) async {
   final docUser = FirebaseFirestore.instance.collection('post').doc();
 
 

@@ -1,15 +1,13 @@
-import 'dart:io';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/auth_services.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:flutter_application_1/screen/globals.dart' as globals;
 import 'package:flutter_application_1/screen/login_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'dart:math';
 
 class SignUpScreen extends StatefulWidget {
@@ -142,7 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
   void _signUp() async{
-    String username=_username.text;
+
     String email=_email.text;
     String password=_password.text;
 
@@ -152,7 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       await getUserID();
       String generateRandomName() {
       var random = Random();
-      int randomNumber = random.nextInt(10000); // Menghasilkan angka acak antara 0 dan 9999
+      int randomNumber = random.nextInt(10000);
       return 'user_$randomNumber';
   }
       globals.nama=generateRandomName();
