@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
@@ -23,7 +24,9 @@ with SingleTickerProviderStateMixin{
   @override
   void initState(){
     super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    if (!kIsWeb) {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    }
 
 
   
@@ -51,8 +54,10 @@ with SingleTickerProviderStateMixin{
 
   @override
   void dispose(){
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-    overlays: SystemUiOverlay.values);
+    if (!kIsWeb) {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: SystemUiOverlay.values);
+    }
     super.dispose();
   }
 

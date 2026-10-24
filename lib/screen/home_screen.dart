@@ -5,19 +5,15 @@ import 'package:flutter_application_1/screen/beranda.dart';
 import 'package:flutter_application_1/screen/globals.dart' as globals;
 
 import 'package:flutter_application_1/screen/pengaturan.dart';
-import 'package:flutter_application_1/screen/premium.dart';
-import 'package:flutter_application_1/screen/profile.dart';
 import 'package:flutter_application_1/screen/user.dart';
 import 'package:flutter_application_1/utils/assets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
-
-  _BottomNavBarState createState() => _BottomNavBarState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
@@ -26,48 +22,65 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _children = [
     const Beranda(),
     const MailScreen(),
-
   ];
-
-  
 
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
-IconData NAMA=Icons.abc;
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0F1015),
       body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor:globals.warna1,
-        currentIndex: _currentIndex,
-        items:  [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _currentIndex==0 ? homeFilledIcon : homeOutlinedIcon,
-              color: globals.warna2,
-              width: 24,
-              height: 24,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFF0F1015),
+          border: Border(
+            top: BorderSide(
+              color: Color(0xFF1E202B),
+              width: 1,
             ),
-            label: '',
           ),
-
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              _currentIndex==3 ? envelopeFilledIcon : envelopeOutlinedIcon,
-              color: globals.warna2,
-              height: 24,
+        ),
+        child: BottomNavigationBar(
+          onTap: onTabTapped,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: const Color(0xFF0F1015),
+          elevation: 0,
+          currentIndex: _currentIndex,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _currentIndex == 0 ? homeFilledIcon : homeOutlinedIcon,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 0 ? Colors.white : const Color(0xFF7A7E8C),
+                  BlendMode.srcIn,
+                ),
+                width: 22,
+                height: 22,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-        ],
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                _currentIndex == 1 ? envelopeFilledIcon : envelopeOutlinedIcon,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 1 ? Colors.white : const Color(0xFF7A7E8C),
+                  BlendMode.srcIn,
+                ),
+                width: 22,
+                height: 22,
+              ),
+              label: '',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -82,423 +95,273 @@ class MailScreen extends StatefulWidget {
 }
 
 class _MailScreenState extends State<MailScreen> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer:  const WidgetDrawer(),
-        backgroundColor: globals.warna1,
-        appBar:AppBar(
-            elevation: 1,
-            backgroundColor: globals.warna1,
-            leading: Builder(builder:(context){
-        return GestureDetector(
-          onTap: () {
-            Scaffold.of(context).openDrawer();
-          },
-          child:Container(
-          width: 30,
-          height: 30,
-          margin: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.grey,
-              width: 2,
+      backgroundColor: const Color(0xFF0F1015),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF0F1015),
+        elevation: 0,
+        toolbarHeight: 64,
+        shape: const Border(
+          bottom: BorderSide(
+            color: Color(0xFF272932),
+            width: 1,
+          ),
+        ),
+        leading: Container(
+          margin: const EdgeInsets.only(left: 16),
+          alignment: Alignment.center,
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: const Color(0xFF272932),
+                width: 1.5,
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                globals.url.isNotEmpty
+                    ? globals.url
+                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4cFqKLnpvsbrxezgbVAojOIRTwmEH2iDSkQ&s',
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => const Icon(
+                  Icons.person,
+                  color: Colors.white70,
+                  size: 20,
+                ),
+              ),
             ),
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: Image.network(
-              globals.url,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ), 
-        );
-        } ),
-            actions: <Widget>[
-               IconButton(
-              icon:  Icon(Icons.settings,color: globals.warna2),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const Pengaturan()));
+        ),
+        title: Image.asset(
+          'assets/images/logo.png',
+          height: 52,
+          width: 52,
+          fit: BoxFit.contain,
+        ),
+        centerTitle: true,
+        actions: <Widget>[
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            alignment: Alignment.center,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(20),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Pengaturan()),
+                );
               },
-            )
-            ],
-            title: Container(
-              decoration: BoxDecoration(
-                  color: globals.warna3,
+              child: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFF1B1C22),
                   border: Border.all(
-                    color: Colors.black,
+                    color: const Color(0xFF272932),
                     width: 1,
                   ),
-                  borderRadius: const BorderRadius.all(Radius.circular(20))),
-              child:  TextField(
-                decoration: InputDecoration(
-                  isCollapsed: true,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 8),
-                  hintText: "   Search Direct Messages",
-                  hintStyle: TextStyle(
-                    color: globals.warna2,
-                  ),
-                  border: InputBorder.none,
+                ),
+                child: const Icon(
+                  Icons.settings_outlined,
+                  color: Color(0xFFC0C4CC),
+                  size: 20,
                 ),
               ),
-            )),
-        body: Stack(
-          children: <Widget>[
-            Positioned(
-                bottom: MediaQuery.of(context).viewInsets.bottom+300,
-                left: 20,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: globals.warna1,
-                  child:  Text(
-                  "Welcome to your inbox!",
-                  style: TextStyle(
-                    color: globals.warna2,
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ))),
-              Positioned(
-                  bottom: MediaQuery.of(context).viewInsets.bottom+225,
-                  left: 20,
-                  child:
-                  Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: globals.warna1,
-                  child:const Text(
-                  "Drop a line, share Tweets and more with private conversations between you and others on Twitter.",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 80, 79, 79),
-                    fontSize: 20,
-                    fontWeight: FontWeight.normal,
-                  ),
-                )
-                  )
-                  
+            ),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: <Widget>[
+          // ── Subtle Top Right Ambient Glow ──
+          Positioned(
+            top: -60,
+            right: -60,
+            child: Container(
+              width: 260,
+              height: 260,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    Color(0x8C262038),
+                    Colors.transparent,
+                  ],
                 ),
-            Positioned(
-              bottom: MediaQuery.of(context).viewInsets.bottom+160,
-              left: 20,
-              child:
-              ElevatedButton(
-                onPressed: () => {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>user()))
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  padding: const EdgeInsets.all(14),
-                  backgroundColor: Colors.blue
-                ),
-                child: const Text("Write a message",style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),),
               ),
             ),
-            Positioned(
-              bottom: MediaQuery.of(context).viewInsets.bottom+30,
-              right :MediaQuery.of(context).viewInsets.right+25,
-                child: Container(
-                  decoration:const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue,
+          ),
+
+          // ── Inbox Hero Content ──
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 420),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 64,
+                        height: 64,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1B1C22),
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(
+                            color: const Color(0xFF272932),
+                            width: 1,
+                          ),
+                        ),
+                        child: const Icon(
+                          Icons.mail_outline_rounded,
+                          color: Color(0xFFC0C4CC),
+                          size: 30,
+                        ),
+                      ),
+                      const SizedBox(height: 22),
+                      const Text(
+                        "Welcome to your inbox!",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 27,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Drop a line, share posts, and have private conversations with others on Shadow Post.",
+                        style: TextStyle(
+                          color: Color(0xFF7A7E85),
+                          fontSize: 14,
+                          height: 1.45,
+                        ),
+                      ),
+                      const SizedBox(height: 28),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF282A36),
+                              Color(0xFF1E202A),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: const Color(0xFF383B48),
+                            width: 1,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x4D000000),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const user()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            shadowColor: Colors.transparent,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 14,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                          ),
+                          icon: const Icon(
+                            Icons.edit_square,
+                            color: Colors.white,
+                            size: 18,
+                          ),
+                          label: const Text(
+                            "Write a message",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.mail,
-                        color: Colors.white,
-                      )),
                 ),
+              ),
             ),
-            
-          ],
-        ));
+          ),
+
+          // ── Pinned Compose FAB ──
+          Positioned(
+            bottom: 24,
+            right: 20,
+            child: Container(
+              width: 54,
+              height: 54,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFF282A36),
+                    Color(0xFF1E202A),
+                  ],
+                ),
+                border: Border.all(
+                  color: const Color(0xFF383B48),
+                  width: 1.5,
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x66000000),
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  customBorder: const CircleBorder(),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const user()),
+                    );
+                  },
+                  child: const Icon(
+                    Icons.mail_outline_rounded,
+                    color: Colors.white,
+                    size: 26,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
-class WidgetDrawer extends StatefulWidget {
-  const WidgetDrawer({super.key});
-
-  @override
-  State<WidgetDrawer> createState() => _WidgetDrawerState();
-}
-
-class _WidgetDrawerState extends State<WidgetDrawer> {
-
-  bool tombol=false;
-  @override
-  Widget build(BuildContext context) {
-    
-    return Drawer(
-      width: MediaQuery.of(context).size.width-110,
-      backgroundColor: globals.warna1,
-      child:Stack(
-      children: <Widget>[
-        Positioned(
-          top: 40,
-          left: 10,
-          child: Container(
-                                width: 50,
-                                height: 50,
-                                decoration:  BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    image: NetworkImage(globals.url),
-                                    fit: BoxFit.cover
-                                  )
-                                ),
-                              )
-        ),
-        Positioned(
-          top: 100,
-          left: 10,
-          child: Text(globals.nama,style: TextStyle(
-                color: globals.warna2,
-                fontSize: 18,
-                fontWeight: FontWeight.w500
-              ),),
-            ),
-        Positioned(
-          top:100,
-          left: 110,
-          child: Icon(Icons.lock,color: globals.warna2,size: 20,),
-        ),
-        const Positioned(
-          top: 125,
-          left: 10,
-          child: Text("@randygantengbanget",style: TextStyle(
-                color: Color.fromARGB(255, 80, 79, 79),
-                fontSize: 15,
-                fontWeight: FontWeight.normal
-              ),),
-            ),
-        Positioned(
-          top: 160,
-          left: 10,
-          child: Text("4",style: TextStyle(
-                color: globals.warna2,
-                fontSize: 15,
-                fontWeight: FontWeight.normal
-              ),),
-            ),
-        const Positioned(
-          top: 160,
-          left: 25,
-          child: Text("Mengikuti",style: TextStyle(
-                color: Color.fromARGB(255, 80, 79, 79),
-                fontSize: 16,
-                fontWeight: FontWeight.normal
-              ),),
-            ),
-        Positioned(
-          top: 160,
-          left: 105,
-          child: Text("18",style: TextStyle(
-                color: globals.warna2,
-                fontSize: 15,
-                fontWeight: FontWeight.normal
-              ),),
-            ),
-        const Positioned(
-          top: 160,
-          left: 129,
-          child: Text("Pengikut",style: TextStyle(
-                color: Color.fromARGB(255, 80, 79, 79),
-                fontSize: 16,
-                fontWeight: FontWeight.normal
-              ),),
-            ),
-        Positioned(
-          top: 240,
-          left: 10,
-          child: Icon(Icons.account_box,color: globals.warna2,size: 30,),
-        ),
-        Positioned(
-          top: 234,
-          left: 50,
-          
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,MaterialPageRoute(builder: (context)=> const Profile()));
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: const Color.fromARGB(255, 114, 112, 112),
-              elevation: 0,
-              backgroundColor: globals.warna1
-            ),
-            child:Text("Profil",style: TextStyle(
-            color: globals.warna2,
-            fontSize: 25,
-            ),),
-          ),
-        ),
-        Positioned(
-          top: 304,
-          left: 10,
-          child: Icon(FontAwesomeIcons.xTwitter,color: globals.warna2,size: 30,),
-        ),
-        Positioned(
-          top: 295,
-          left: 50,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Premium()));
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: const Color.fromARGB(255, 114, 112, 112),
-              elevation: 0,
-              backgroundColor: globals.warna1,
-              
-            ),
-            child:Text("Premium",style: TextStyle(
-            color: globals.warna2,
-            fontSize: 25,
-            ),),
-          ),
-        ),
-        Positioned(
-          top: 350,
-          left: 50,
-          child: ElevatedButton(
-            onPressed: () {
-              
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: const Color.fromARGB(255, 114, 112, 112),
-              elevation: 0,
-              backgroundColor: globals.warna1
-            ),
-            child:Text("Markah",style: TextStyle(
-            color: globals.warna2,
-            fontSize: 25,
-            ),),
-          ),
-        ),
-        Positioned(
-          top: 410,
-          left: 50,
-          child: ElevatedButton(
-            onPressed: () {
-              
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: const Color.fromARGB(255, 114, 112, 112),
-              elevation: 0,
-              backgroundColor: globals.warna1
-            ),
-            child:Text("Daftar",style: TextStyle(
-            color: globals.warna2,
-            fontSize: 25,
-            ),),
-          ),
-        ),
-        Positioned(
-          top: 465,
-          left: 50,
-          child: ElevatedButton(
-            onPressed: () {
-              
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: const Color.fromARGB(255, 114, 112, 112),
-              elevation: 0,
-              backgroundColor: globals.warna1
-            ),
-            child:Text("Monetisasi",style: TextStyle(
-            color: globals.warna2,
-            fontSize: 25,
-            ),),
-          ),
-        ),
-        Positioned(
-          top: 210,
-          left: 10,
-          child: Container(
-            width: 290,
-            height: 2,
-            color: const Color.fromARGB(255, 107, 103, 103),
-          ),
-        ),
-        Positioned(
-          top: 580,
-          left: 10,
-          child: Container(
-            width: 290,
-            height: 2,
-            color: const Color.fromARGB(255, 107, 103, 103),
-          ),
-        ),
-        Positioned(
-          top: 600,
-          left: 10,
-          child:Text("Alat Profesional",style: TextStyle(
-            color: globals.warna2,
-            fontSize: 17,
-            ),),
-        ),
-        Positioned(
-          top: 650,
-          left: 10,
-          child:Text("Pengaturan & Dukungan",style: TextStyle(
-            color: globals.warna2,
-            fontSize: 17,
-            ),),
-        ),
-        Positioned(
-          top: 585,
-          left: 240,
-          child: ElevatedButton(
-            onPressed: () {
-              
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: const Color.fromARGB(255, 114, 112, 112),
-              elevation: 0,
-              backgroundColor:globals.warna1,
-              shape: const CircleBorder(),
-            ),
-            child: Icon(Icons.arrow_drop_down_outlined,size: 30,color: globals.warna2,),
-          ),
-        ),
-        Positioned(
-          top: 635,
-          left: 240,
-          child: ElevatedButton(
-            onPressed: () {
-              
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: const Color.fromARGB(255, 114, 112, 112),
-              elevation: 0,
-              backgroundColor:globals.warna1,
-              shape: const CircleBorder(),
-            ),
-            child: Icon(Icons.arrow_drop_down_outlined,size: 30,color: globals.warna2,),
-          ),
-        ),
-        Positioned(
-          top: 358,
-          left: 10,
-          child: Icon(Icons.bookmark_border,color: globals.warna2,size:35 ),
-        ),
-        Positioned(
-          top: 416,
-          left: 10,
-          child: Icon(Icons.library_books,color: globals.warna2,size: 35,),
-        ),
-        Positioned(
-          top: 470,
-          left: 10,
-          child: Icon(Icons.money,color: globals.warna2,size: 35,),
-        )
-        
-      ],
-    ));
-  }
-}
 

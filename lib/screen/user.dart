@@ -20,29 +20,6 @@ class user extends StatefulWidget {
 class _userState extends State<user> {
   FirebaseAuth auth = FirebaseAuth.instance;
   final CollectionReference user = FirebaseFirestore.instance.collection('users');
-  final List<String> followingUsers = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _loadFollowingUsers(); 
-  }
-
-  Future<void> _loadFollowingUsers() async {
-    final userFollowing = await FirebaseFirestore.instance
-        .collection('users') 
-        .doc(globals.uid) 
-        .get();
-    if (userFollowing.exists) {
-      final followingUsersData = userFollowing.data()!['following_users'];
-      if (followingUsersData != null && followingUsersData is List) {
-        setState(() {
-          followingUsers.addAll(followingUsersData.cast<String>());
-        });
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,30 +29,42 @@ class _userState extends State<user> {
         leading: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: globals.warna1,
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
             elevation: 0,
           ),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>BottomNavBar()));
+            if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+            } else {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const BottomNavBar()),
+              );
+            }
           },
-          child: Icon(Icons.arrow_back,color: globals.warna2,),
+          child: Icon(Icons.arrow_back, color: globals.warna2),
         ),
-        title: Text("Direct Message",style: TextStyle(
-          color: Colors.white
-        ),),
+        title: const Text(
+          "Direct Message",
+          style: TextStyle(color: Colors.white),
+        ),
       ),
-      body:StreamBuilder(
+      body: StreamBuilder(
         stream: user.snapshots(),
-        builder: (context, AsyncSnapshot <QuerySnapshot> streamSnapshot){
-          if(streamSnapshot.hasData){
+        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+          if (streamSnapshot.hasData) {
             return ListView.builder(
               itemCount: streamSnapshot.data!.docs.length,
-              itemBuilder: (context, index){
-                final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
-                final CollectionReference notif =FirebaseFirestore.instance.collection('chat_room').doc(createChatRoomId(globals.uid, documentSnapshot.id)).collection('notif');
-      
-                if (documentSnapshot.id == globals.uid || !followingUsers.contains(documentSnapshot.id)) {
-                  return SizedBox(); 
+              itemBuilder: (context, index) {
+                final DocumentSnapshot documentSnapshot =
+                    streamSnapshot.data!.docs[index];
+                final CollectionReference notif = FirebaseFirestore.instance
+                    .collection('chat_room')
+                    .doc(createChatRoomId(globals.uid, documentSnapshot.id))
+                    .collection('notif');
+
+                if (documentSnapshot.id == globals.uid) {
+                  return const SizedBox.shrink();
                 } else {
                   return Container(
                     height: 50,
