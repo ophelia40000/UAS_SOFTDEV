@@ -220,15 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           letterSpacing: -0.5,
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      const Text(
-                        "Please enter your details.",
-                        style: TextStyle(
-                          color: Color(0xFF7A7E85),
-                          fontSize: 14,
-                        ),
-                      ),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 28),
 
                       // ── Label: Email or Username ──
                       const Text(
@@ -264,7 +256,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: const InputDecoration(
                             hintText: "username atau nama@email.com",
                             hintStyle: TextStyle(
-                              color: Color(0xFF555860),
+                              color: Color(0xFF8E929E),
                               fontSize: 14,
                             ),
                             border: InputBorder.none,
@@ -309,7 +301,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           decoration: InputDecoration(
                             hintText: "••••••••",
                             hintStyle: const TextStyle(
-                              color: Color(0xFF555860),
+                              color: Color(0xFF8E929E),
                               fontSize: 14,
                             ),
                             border: InputBorder.none,

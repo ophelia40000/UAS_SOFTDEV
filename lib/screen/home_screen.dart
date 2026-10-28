@@ -7,6 +7,7 @@ import 'package:flutter_application_1/screen/globals.dart' as globals;
 import 'package:flutter_application_1/screen/pengaturan.dart';
 import 'package:flutter_application_1/screen/user.dart';
 import 'package:flutter_application_1/utils/assets.dart';
+import 'package:flutter_application_1/widgets/safe_image.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -65,7 +66,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 width: 22,
                 height: 22,
               ),
-              label: '',
+              label: 'Beranda',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -77,7 +78,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 width: 22,
                 height: 22,
               ),
-              label: '',
+              label: 'Pesan',
             ),
           ],
         ),
@@ -124,12 +125,12 @@ class _MailScreenState extends State<MailScreen> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                globals.url.isNotEmpty
-                    ? globals.url
-                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4cFqKLnpvsbrxezgbVAojOIRTwmEH2iDSkQ&s',
+              child: SafeNetworkImage(
+                imageUrl: globals.url,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const Icon(
+                cacheWidth: 100,
+                cacheHeight: 100,
+                fallbackWidget: const Icon(
                   Icons.person,
                   color: Colors.white70,
                   size: 20,

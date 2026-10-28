@@ -31,23 +31,25 @@ with SingleTickerProviderStateMixin{
 
   
 
-    Future.delayed(const Duration(seconds:2),(){
+    Future.delayed(const Duration(seconds: 2), () {
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
-  if (mounted) {
-    if (user != null) {
-      tunggu().then((_) {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (_) => const BottomNavBar(),
-        ));
+        if (mounted) {
+          if (user != null) {
+            tunggu().then((_) {
+              if (mounted) {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (_) => const BottomNavBar(),
+                ));
+              }
+            });
+          } else {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (_) => const LoginScreen(),
+            ));
+          }
+        }
       });
-    } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (_) => const LoginScreen(),
-      ));
-    }
-  }
-});
-    });;
+    });
 
     
   }
@@ -65,33 +67,17 @@ with SingleTickerProviderStateMixin{
   
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.black,
-      body:Stack(
-        children: <Widget>[
-          Positioned(
-            top:MediaQuery.of(context).viewInsets.top+250,
-            left: screenWidth*0.24,
-            child:Container(
-            decoration: const BoxDecoration(
-          color: Colors.black
+      body: Center(
+        child: Image.asset(
+          'assets/images/logo.png',
+          width: 180,
+          height: 180,
+          fit: BoxFit.contain,
         ),
-        child: Image.asset('assets/images/logo.png',
-        width: 200,
-        height: 200,)
-        ), ),
-        const Positioned(
-          top: 400,
-          left:160,
-          child:Text("",style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),)
-        )
-        ],
-      )
-      );
+      ),
+    );
 
   }
     Future<void> getUserID() async {
@@ -115,17 +101,30 @@ Future<void> getNamaUser() async {
         DocumentSnapshot userSnapshot = await _produk.doc(authState.uid).get();
 
         if (userSnapshot.exists) {
-          Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
-          if (userData.containsKey('name') && userData.containsKey('url')) {
+          Map<String, dynamic> userData =
+              userSnapshot.data() as Map<String, dynamic>;
+          String name = (userData['name'] ??
+                  userData['username'] ??
+                  userData['nama'] ??
+                  userData['email']?.toString().split('@').first ??
+                  '')
+              .toString();
+          String url = (userData['url'] ??
+                  userData['photoUrl'] ??
+                  userData['avatar'] ??
+                  userData['imageUrl'] ??
+                  userData['foto'] ??
+                  '')
+              .toString();
+
+          if (mounted) {
             setState(() {
-              globals.nama = userData['name'];
-              globals.url = userData['url']; 
+              if (name.isNotEmpty) globals.nama = name;
+              if (url.isNotEmpty) globals.url = url;
             });
-          } else {
-            print('Kunci \'nama\' tidak ditemukan dalam data user dengan ID ${authState.uid}');
           }
         } else {
-          print('Dokumen tidak ditemukan untuk user dengan ID ${authState.uid}');
+          debugPrint('Dokumen tidak ditemukan untuk user dengan ID ${authState.uid}');
         }
       } catch (e) {
         print('Error: $e');

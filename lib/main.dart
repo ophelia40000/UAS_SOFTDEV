@@ -31,12 +31,7 @@ Future main() async {
       // Ignore
     }
   }
-  runApp(
-    const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -44,9 +39,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      title: 'Shadow Post',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color(0xFF0F1015),
+        canvasColor: const Color(0xFF0F1015),
+        cardColor: const Color(0xFF1B1C22),
+        dividerColor: const Color(0xFF272932),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xFF8F94FB),
+          surface: Color(0xFF1B1C22),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF0F1015),
+          elevation: 0,
+          centerTitle: true,
+        ),
+      ),
+      home: const SplashScreen(),
     );
   }
 }

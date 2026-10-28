@@ -251,7 +251,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           decoration: const InputDecoration(
                             hintText: "username",
                             hintStyle: TextStyle(
-                              color: Color(0xFF555860),
+                              color: Color(0xFF8E929E),
                               fontSize: 14,
                             ),
                             border: InputBorder.none,
@@ -296,7 +296,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           decoration: InputDecoration(
                             hintText: "•••••••• (min. 6 karakter)",
                             hintStyle: const TextStyle(
-                              color: Color(0xFF555860),
+                              color: Color(0xFF8E929E),
                               fontSize: 14,
                             ),
                             border: InputBorder.none,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/globals.dart' as globals;
+import 'package:flutter_application_1/widgets/safe_image.dart';
 
 class CommentPage extends StatefulWidget {
   final String postId;
@@ -222,7 +223,7 @@ class _CommentPageState extends State<CommentPage> {
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
                           color: const Color(0xFF16171E),
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(18),
                           border: Border.all(
                             color: const Color(0xFF272932),
                             width: 1,
@@ -244,22 +245,17 @@ class _CommentPageState extends State<CommentPage> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(19),
-                                child: (avatarUrl != null &&
-                                        avatarUrl.isNotEmpty)
-                                    ? Image.network(
-                                        avatarUrl,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (_, __, ___) => const Icon(
-                                          Icons.person_rounded,
-                                          color: Color(0xFF7A7E85),
-                                          size: 20,
-                                        ),
-                                      )
-                                    : const Icon(
-                                        Icons.person_rounded,
-                                        color: Color(0xFF7A7E85),
-                                        size: 20,
-                                      ),
+                                child: SafeNetworkImage(
+                                  imageUrl: avatarUrl ?? '',
+                                  fit: BoxFit.cover,
+                                  cacheWidth: 100,
+                                  cacheHeight: 100,
+                                  fallbackWidget: const Icon(
+                                    Icons.person_rounded,
+                                    color: Color(0xFF7A7E85),
+                                    size: 20,
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(width: 12),
@@ -344,21 +340,17 @@ class _CommentPageState extends State<CommentPage> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(18),
-                      child: globals.url.isNotEmpty
-                          ? Image.network(
-                              globals.url,
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => const Icon(
-                                Icons.person_rounded,
-                                color: Color(0xFF7A7E85),
-                                size: 20,
-                              ),
-                            )
-                          : const Icon(
-                              Icons.person_rounded,
-                              color: Color(0xFF7A7E85),
-                              size: 20,
-                            ),
+                      child: SafeNetworkImage(
+                        imageUrl: globals.url,
+                        fit: BoxFit.cover,
+                        cacheWidth: 100,
+                        cacheHeight: 100,
+                        fallbackWidget: const Icon(
+                          Icons.person_rounded,
+                          color: Color(0xFF7A7E85),
+                          size: 20,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -391,7 +383,7 @@ class _CommentPageState extends State<CommentPage> {
                         decoration: const InputDecoration(
                           hintText: "Tulis komentar...",
                           hintStyle: TextStyle(
-                            color: Color(0xFF5A5E6B),
+                            color: Color(0xFF8E929E),
                             fontSize: 14,
                           ),
                           border: InputBorder.none,

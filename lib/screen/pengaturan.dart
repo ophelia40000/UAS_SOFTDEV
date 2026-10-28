@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/screen/globals.dart' as globals;
+import 'package:flutter_application_1/widgets/safe_image.dart';
 import 'package:flutter_application_1/screen/home_screen.dart';
 import 'package:flutter_application_1/screen/login_screen.dart';
 
@@ -280,21 +281,17 @@ class _PengaturanState extends State<Pengaturan> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(26),
-                      child: globals.url.isNotEmpty
-                          ? Image.network(
-                              globals.url,
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => const Icon(
-                                Icons.person_rounded,
-                                color: Color(0xFF7A7E85),
-                                size: 28,
-                              ),
-                            )
-                          : const Icon(
-                              Icons.person_rounded,
-                              color: Color(0xFF7A7E85),
-                              size: 28,
-                            ),
+                      child: SafeNetworkImage(
+                        imageUrl: globals.url,
+                        fit: BoxFit.cover,
+                        cacheWidth: 120,
+                        cacheHeight: 120,
+                        fallbackWidget: const Icon(
+                          Icons.person_rounded,
+                          color: Color(0xFF7A7E85),
+                          size: 28,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 14),
